@@ -31,7 +31,7 @@ padding:20px;
 
 #main{
 max-width:700px;
-animation:fadeIn 1.5s ease;
+animation:fadeIn 1.2s ease;
 }
 
 @keyframes fadeIn{
@@ -52,7 +52,7 @@ transition:0.3s;
 .yes{background:#00ff88;color:black;}
 .no{background:#ff004c;color:white;position:absolute;}
 
-button:hover{transform:scale(1.1);}
+button:hover{transform:scale(1.08);}
 
 img{
 margin-top:20px;
@@ -61,20 +61,15 @@ box-shadow:0 0 25px rgba(255,255,255,0.7);
 max-width:280px;
 }
 
-.cat{cursor:pointer;transition:0.3s;}
-.cat:hover{transform:scale(1.1);}
-
-.heart{
-position:absolute;
-animation:float 4s linear infinite;
+.cat{
+cursor:pointer;
+transition:0.3s;
 }
 
-@keyframes float{
-0%{transform:translateY(0);opacity:1;}
-100%{transform:translateY(-800px);opacity:0;}
+.cat:hover{
+transform:scale(1.1);
 }
 
-/* Memories Grid */
 .memories{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
@@ -86,11 +81,21 @@ margin-top:25px;
 width:100%;
 height:160px;
 object-fit:cover;
-transition:0.4s;
+transition:0.3s;
 }
 
 .memories img:hover{
 transform:scale(1.05);
+}
+
+.heart{
+position:absolute;
+animation:float 4s linear infinite;
+}
+
+@keyframes float{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-800px);opacity:0;}
 }
 </style>
 </head>
@@ -112,6 +117,7 @@ const yesBtn = document.getElementById("yesBtn");
 
 let scale = 1;
 
+// Initial No hover
 noBtn.addEventListener("mouseover",()=>{
 const x=Math.random()*(window.innerWidth-100);
 const y=Math.random()*(window.innerHeight-50);
@@ -128,24 +134,34 @@ main.innerHTML=`
 <h1>YAYYY!!! 💕</h1>
 <img src="cute.gif">
 <h2>Are baaiko why you are smiling? 😏❤️</h2>
-<button class="yes" onclick="photoStep()">Haa bilkul lo 😌📸</button>
-<button class="no" id="no2">Are 1 kya 2 lelo 😳✨</button>
+<button class="yes" onclick="cameraStep()">Haa bilkul lo 😌📸</button>
+<button class="yes" onclick="cameraStep()">Are 1 kya 2 lelo 😳✨</button>
 `;
-moveNo("no2");
 startHearts();
 }
 
-function photoStep(){
+// CAMERA STEP
+function cameraStep(){
 main.innerHTML=`
-<h2>Oh my god how cute you are while smiling 😭❤️</h2>
-<img src="her.jpg">
-<p>Can I click a picture with you? 🥺</p>
-<button class="yes" onclick="couplePhoto()">Yes 💞</button>
-<button class="no" id="no3">Sharma rahi hu 😝</button>
+<h2>You look so cute while smiling 😭❤️</h2>
+<p>Can I click a picture of you? 📸</p>
+<img src="catcam.gif" class="cat" onclick="showHerPhoto()">
 `;
-moveNo("no3");
 }
 
+// SHOW HER PHOTO
+function showHerPhoto(){
+main.innerHTML=`
+<h2>Oh my god... look at you 😍❤️</h2>
+<img src="her.jpg">
+<p>Now can we take one together? 🥺</p>
+<button class="yes" onclick="couplePhoto()">Yes 💞</button>
+<button class="no" id="no2">Sharma rahi hu 😝</button>
+`;
+moveNo("no2");
+}
+
+// COUPLE PHOTO
 function couplePhoto(){
 main.innerHTML=`
 <h1>Perfect Couple Alert 💑✨</h1>
@@ -157,6 +173,7 @@ main.innerHTML=`
 startHearts();
 }
 
+// BIKE
 function ride(){
 main.innerHTML=`
 <h1>Hold Tight 😌🏍💨</h1>
@@ -166,6 +183,7 @@ main.innerHTML=`
 `;
 }
 
+// MEMORIES
 function memories(){
 main.innerHTML=`
 <h1>Our Beautiful Memories ❤️</h1>
@@ -177,12 +195,13 @@ main.innerHTML=`
 <img src="memo5.jpeg">
 </div>
 <h2 style="margin-top:25px;">
-Every memory with you is my favorite chapter of life 📖💖
+Every memory with you is my favorite chapter 📖💖
 </h2>
 <button class="yes" onclick="ending()">One last thing 😌</button>
 `;
 }
 
+// ENDING
 function ending(){
 main.innerHTML=`
 <h1>Forever Starts Now 💍✨</h1>
