@@ -3,198 +3,220 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love ❤️</title>
+<title>Our Love Story ❤️</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 
-body {
-  height:100vh;
-  background: linear-gradient(-45deg,#ff4e50,#fc913a,#f9d423,#ff4e50);
-  background-size:400% 400%;
-  animation: gradient 8s ease infinite;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow:hidden;
-  transition:1s;
+body{
+height:100vh;
+background:linear-gradient(-45deg,#ff4e50,#fc913a,#f9d423,#ff4e50);
+background-size:400% 400%;
+animation:gradient 10s ease infinite;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+color:white;
+text-align:center;
+padding:20px;
 }
 
-@keyframes gradient {
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+@keyframes gradient{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
 }
 
-.container{
-  text-align:center;
-  color:white;
-  animation:fadeIn 2s ease;
+#main{
+max-width:700px;
+animation:fadeIn 1.5s ease;
 }
 
 @keyframes fadeIn{
-  from{opacity:0; transform:translateY(20px);}
-  to{opacity:1; transform:translateY(0);}
-}
-
-h1{
-  font-size:2.5rem;
-  margin-bottom:20px;
-}
-
-h2{
-  margin-top:20px;
-  font-size:1.5rem;
-}
-
-.buttons{
-  margin-top:30px;
-  position:relative;
-  height:120px;
+from{opacity:0;transform:translateY(20px);}
+to{opacity:1;transform:translateY(0);}
 }
 
 button{
-  padding:12px 25px;
-  font-size:1rem;
-  border:none;
-  border-radius:30px;
-  cursor:pointer;
-  margin:10px;
-  transition:0.3s;
+padding:12px 25px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+margin:10px;
+font-size:1rem;
+transition:0.3s;
 }
 
-.yes{
-  background:#00ff88;
-  color:black;
+.yes{background:#00ff88;color:black;}
+.no{background:#ff004c;color:white;position:absolute;}
+
+button:hover{transform:scale(1.1);}
+
+img{
+margin-top:20px;
+border-radius:20px;
+box-shadow:0 0 25px rgba(255,255,255,0.7);
+max-width:280px;
 }
 
-.no{
-  background:#ff004c;
-  color:white;
-  position:absolute;
-}
-
-button:hover{
-  transform:scale(1.1);
-}
+.cat{cursor:pointer;transition:0.3s;}
+.cat:hover{transform:scale(1.1);}
 
 .heart{
-  position:absolute;
-  color:white;
-  animation:float 4s linear infinite;
+position:absolute;
+animation:float 4s linear infinite;
 }
 
 @keyframes float{
-  0%{transform:translateY(0); opacity:1;}
-  100%{transform:translateY(-800px); opacity:0;}
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-800px);opacity:0;}
 }
 
-.confetti{
-  position:absolute;
-  width:8px;
-  height:8px;
-  animation:fall 3s linear infinite;
+/* Memories Grid */
+.memories{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+gap:15px;
+margin-top:25px;
 }
 
-@keyframes fall{
-  0%{transform:translateY(-10px);}
-  100%{transform:translateY(800px);}
+.memories img{
+width:100%;
+height:160px;
+object-fit:cover;
+transition:0.4s;
+}
+
+.memories img:hover{
+transform:scale(1.05);
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
-  <h1>Hey <span id="herName">[Her Name]</span> ❤️</h1>
-  <h2>Will you be my Valentine?</h2>
-
-  <div class="buttons">
-    <button class="yes" id="yesBtn" onclick="accepted()">Yes 💖</button>
-    <button class="no" id="noBtn">No 😢</button>
-  </div>
+<div id="main">
+<h1>Hey Rishu ❤️</h1>
+<h2>Will you be my Valentine?</h2>
+<button class="yes" id="yesBtn">Yes 💖</button>
+<button class="no" id="noBtn">No 😢</button>
 </div>
 
 <script>
 
-document.getElementById("herName").textContent = "Rishu";
-
+const main = document.getElementById("main");
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 
-let noMessages = [
-  "No 😢",
-  "Ek baar fir soch le 🥺",
-  "Dekh soch le wapis 😭",
-  "Itna bura hu kya? 😔",
-  "Last chance hai 😩",
-  "Pakka na? 💔"
-];
+let scale = 1;
 
-let hoverCount = 0;
-let yesScale = 1;
-
-noBtn.addEventListener("mouseover", () => {
-
-  if (hoverCount < noMessages.length - 1) {
-    hoverCount++;
-  }
-  noBtn.textContent = noMessages[hoverCount];
-
-  const x = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
-  const y = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-
-  // Slight Yes button grow
-  yesScale += 0.05;
-  yesBtn.style.transform = `scale(${yesScale})`;
+noBtn.addEventListener("mouseover",()=>{
+const x=Math.random()*(window.innerWidth-100);
+const y=Math.random()*(window.innerHeight-50);
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+scale+=0.05;
+yesBtn.style.transform=`scale(${scale})`;
 });
 
-function accepted() {
+yesBtn.addEventListener("click",firstYes);
 
-  document.body.innerHTML = `
-    <div style="text-align:center;color:white;animation:fadeIn 2s ease;">
-      <h1 style="font-size:3rem;">YAYYY!!! 💕</h1>
-      <h2 style="margin-top:20px;">You just made my world brighter ❤️</h2>
-      <p style="margin-top:20px;font-size:1.2rem;">
-        From today, officially you are my favorite human forever 💍✨
-      </p>
-      <img src="cute.gif" 
-           style="margin-top:30px;width:260px;border-radius:20px;
-           box-shadow:0 0 30px white;">
-      <h2 style="margin-top:30px;">I promise to always make you smile 😊</h2>
-    </div>
-  `;
+function firstYes(){
+main.innerHTML=`
+<h1>YAYYY!!! 💕</h1>
+<img src="cute.gif">
+<h2>Are baaiko why you are smiling? 😏❤️</h2>
+<button class="yes" onclick="photoStep()">Haa bilkul lo 😌📸</button>
+<button class="no" id="no2">Are 1 kya 2 lelo 😳✨</button>
+`;
+moveNo("no2");
+startHearts();
+}
 
-  startHearts();
-  startConfetti();
+function photoStep(){
+main.innerHTML=`
+<h2>Oh my god how cute you are while smiling 😭❤️</h2>
+<img src="her.jpg">
+<p>Can I click a picture with you? 🥺</p>
+<button class="yes" onclick="couplePhoto()">Yes 💞</button>
+<button class="no" id="no3">Sharma rahi hu 😝</button>
+`;
+moveNo("no3");
+}
+
+function couplePhoto(){
+main.innerHTML=`
+<h1>Perfect Couple Alert 💑✨</h1>
+<img src="us.jpg">
+<h2>Chal ab meri bike ke piche beth ke mere saath ghumne chalegi? 🏍❤️</h2>
+<button class="yes" onclick="ride()">Haa chalo 😍🏍</button>
+<button class="yes" onclick="ride()">Abhi chalo 😏🔥</button>
+`;
+startHearts();
+}
+
+function ride(){
+main.innerHTML=`
+<h1>Hold Tight 😌🏍💨</h1>
+<img src="bike.jpg">
+<h2>With you, every road feels like heaven ❤️</h2>
+<button class="yes" onclick="memories()">Let's see our memories 📸✨</button>
+`;
+}
+
+function memories(){
+main.innerHTML=`
+<h1>Our Beautiful Memories ❤️</h1>
+<div class="memories">
+<img src="memo1.jpeg">
+<img src="memo2.jpeg">
+<img src="memo3.jpeg">
+<img src="memo4.jpeg">
+<img src="memo5.jpeg">
+</div>
+<h2 style="margin-top:25px;">
+Every memory with you is my favorite chapter of life 📖💖
+</h2>
+<button class="yes" onclick="ending()">One last thing 😌</button>
+`;
+}
+
+function ending(){
+main.innerHTML=`
+<h1>Forever Starts Now 💍✨</h1>
+<p style="margin-top:20px;font-size:1.2rem;">
+No matter where life takes us,  
+I just want you sitting behind me —  
+on my bike, in my memories, and in my life ❤️
+</p>
+<h2 style="margin-top:25px;">I love you, always and forever 💞</h2>
+`;
+startHearts();
+}
+
+function moveNo(id){
+const btn=document.getElementById(id);
+btn.addEventListener("mouseover",()=>{
+const x=Math.random()*(window.innerWidth-100);
+const y=Math.random()*(window.innerHeight-50);
+btn.style.left=x+"px";
+btn.style.top=y+"px";
+});
 }
 
 function startHearts(){
-  setInterval(()=>{
-    const heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "❤️";
-    heart.style.left = Math.random()*window.innerWidth + "px";
-    heart.style.bottom = "0px";
-    heart.style.fontSize = (Math.random()*20+10) + "px";
-    document.body.appendChild(heart);
-    setTimeout(()=>heart.remove(),4000);
-  },200);
-}
-
-function startConfetti(){
-  setInterval(()=>{
-    const confetti = document.createElement("div");
-    confetti.classList.add("confetti");
-    confetti.style.left = Math.random()*window.innerWidth + "px";
-    confetti.style.background =
-      "hsl(" + Math.random()*360 + ",100%,50%)";
-    document.body.appendChild(confetti);
-    setTimeout(()=>confetti.remove(),3000);
-  },100);
+setInterval(()=>{
+const heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="❤️";
+heart.style.left=Math.random()*window.innerWidth+"px";
+heart.style.bottom="0px";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),4000);
+},300);
 }
 
 </script>
