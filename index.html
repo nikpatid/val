@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For My Love ❤️</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
 <style>
 * { margin:0; padding:0; box-sizing:border-box; font-family:'Poppins',sans-serif; }
 
@@ -17,6 +18,7 @@ body {
   justify-content:center;
   align-items:center;
   overflow:hidden;
+  transition:1s;
 }
 
 @keyframes gradient {
@@ -28,6 +30,12 @@ body {
 .container{
   text-align:center;
   color:white;
+  animation:fadeIn 2s ease;
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
 }
 
 h1{
@@ -43,6 +51,7 @@ h2{
 .buttons{
   margin-top:30px;
   position:relative;
+  height:120px;
 }
 
 button{
@@ -73,7 +82,6 @@ button:hover{
 .heart{
   position:absolute;
   color:white;
-  font-size:20px;
   animation:float 4s linear infinite;
 }
 
@@ -81,45 +89,89 @@ button:hover{
   0%{transform:translateY(0); opacity:1;}
   100%{transform:translateY(-800px); opacity:0;}
 }
+
+.confetti{
+  position:absolute;
+  width:8px;
+  height:8px;
+  animation:fall 3s linear infinite;
+}
+
+@keyframes fall{
+  0%{transform:translateY(-10px);}
+  100%{transform:translateY(800px);}
+}
 </style>
 </head>
+
 <body>
 
 <div class="container">
   <h1>Hey <span id="herName">[Her Name]</span> ❤️</h1>
   <h2>Will you be my Valentine?</h2>
+
   <div class="buttons">
-    <button class="yes" onclick="accepted()">Yes 💖</button>
+    <button class="yes" id="yesBtn" onclick="accepted()">Yes 💖</button>
     <button class="no" id="noBtn">No 😢</button>
   </div>
 </div>
 
 <script>
-// Add her name here:
-document.getElementById("herName").textContent = "Rishu"; // <- Change to her name
 
-// No button movement
+document.getElementById("herName").textContent = "Rishu";
+
 const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+
+let noMessages = [
+  "No 😢",
+  "Ek baar fir soch le 🥺",
+  "Dekh soch le wapis 😭",
+  "Itna bura hu kya? 😔",
+  "Last chance hai 😩",
+  "Pakka na? 💔"
+];
+
+let hoverCount = 0;
+let yesScale = 1;
+
 noBtn.addEventListener("mouseover", () => {
+
+  if (hoverCount < noMessages.length - 1) {
+    hoverCount++;
+  }
+  noBtn.textContent = noMessages[hoverCount];
+
   const x = Math.floor(Math.random() * (window.innerWidth - noBtn.offsetWidth));
   const y = Math.floor(Math.random() * (window.innerHeight - noBtn.offsetHeight));
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
+
+  // Slight Yes button grow
+  yesScale += 0.05;
+  yesBtn.style.transform = `scale(${yesScale})`;
 });
 
-// Yes button click action
 function accepted() {
+
   document.body.innerHTML = `
-    <div style="text-align:center;color:white;">
+    <div style="text-align:center;color:white;animation:fadeIn 2s ease;">
       <h1 style="font-size:3rem;">YAYYY!!! 💕</h1>
-      <h2 style="margin-top:20px;">Thank you so much! You just made me the happiest person alive ❤️</h2>
-      <p style="margin-top:20px;font-size:1.2rem;">Let's make this day unforgettable!</p>
+      <h2 style="margin-top:20px;">You just made my world brighter ❤️</h2>
+      <p style="margin-top:20px;font-size:1.2rem;">
+        From today, officially you are my favorite human forever 💍✨
+      </p>
+      <img src="cute.gif" 
+           style="margin-top:30px;width:260px;border-radius:20px;
+           box-shadow:0 0 30px white;">
+      <h2 style="margin-top:30px;">I promise to always make you smile 😊</h2>
     </div>
   `;
+
   startHearts();
+  startConfetti();
 }
 
-// Hearts animation function
 function startHearts(){
   setInterval(()=>{
     const heart = document.createElement("div");
@@ -132,8 +184,20 @@ function startHearts(){
     setTimeout(()=>heart.remove(),4000);
   },200);
 }
+
+function startConfetti(){
+  setInterval(()=>{
+    const confetti = document.createElement("div");
+    confetti.classList.add("confetti");
+    confetti.style.left = Math.random()*window.innerWidth + "px";
+    confetti.style.background =
+      "hsl(" + Math.random()*360 + ",100%,50%)";
+    document.body.appendChild(confetti);
+    setTimeout(()=>confetti.remove(),3000);
+  },100);
+}
+
 </script>
 
 </body>
 </html>
-
