@@ -131,16 +131,18 @@ function step1(){
   main.classList.remove("fade-out");
   main.innerHTML=`
   <h1>YAYYY!!! Thank you so much Rishu For Accepting💕</h1>
+  <img src="cute.gif" style="margin-top:20px; max-width:280px; border-radius:20px; box-shadow:0 0 25px rgba(255,255,255,0.7);" class="show">
   <h2>Awwwww… why are you smiling? 😏❤️</h2>
   <button class="yes" onclick="transition(step2)">Next 😄</button>
   `;
   startHearts();
 }
 
+
 function step2(){
   main.classList.remove("fade-out");
   main.innerHTML=`
-  <h2>You look so beautiful while smiling 😍❤️</h2>
+  <h2>Ohhhhoooo....You look so beautiful while smiling 😍❤️</h2>
   <button class="yes" onclick="transition(step3)">Next 😘</button>
   `;
 }
@@ -168,7 +170,7 @@ function showHerPhoto(){
   main.innerHTML=`
   <h2 style="font-size:2rem; font-weight:700; margin-top:20px;">Oh my god... look at you 😍❤️</h2>
   <img src="her.jpeg">
-  <p style="font-size:2rem; font-weight:700; margin-top:25px;">Now can we take one picture together? 🥺📸</p>
+  <p style="font-size:2rem; font-weight:700; margin-top:25px;">Ek photo mere saath lele yaar? 🥺📸</p>
   <button class="yes" onclick="transition(couplePhoto)">Yes 💞</button>
   <button class="no" id="no2">Sharma rahi hu 😝</button>
   `;
@@ -191,7 +193,7 @@ function couplePhoto(){
 function ride(){
   main.classList.remove("fade-out");
   main.innerHTML=`
-  <h1>Hold Tight on my bike 😌🏍💨</h1>
+  <h1>Hold Tight!! Mujhe Pakad ke beth warna gir jayegi!! 😌🏍💨</h1>
   <img src="bike.jpeg">
   <h2>With you, every road feels beautiful ❤️</h2>
   <button class="yes" onclick="transition(memories)">Let's see our memories 📸✨</button>
@@ -253,4 +255,5 @@ setTimeout(()=>heart.remove(),4000);
 </script>
 </body>
 </html>
+
 
