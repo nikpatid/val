@@ -50,7 +50,7 @@ transition:0.3s;
 }
 
 .yes{background:#00ff88;color:black;}
-.no{background:#ff004c;color:white;position:absolute;}
+.no{background:#ff004c;color:white;position:relative;}
 
 button:hover{transform:scale(1.08);}
 
@@ -70,16 +70,26 @@ transition:0.3s;
 transform:scale(1.1);
 }
 
+/* Memories Grid */
 .memories{
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+grid-template-columns:repeat(2,1fr);
 gap:15px;
 margin-top:25px;
 }
 
+.memories .small{
+grid-column: span 1;
+height:150px;
+}
+
+.memories .big{
+grid-column: span 1;
+height:220px;
+}
+
 .memories img{
 width:100%;
-height:160px;
 object-fit:cover;
 transition:0.3s;
 }
@@ -110,7 +120,6 @@ animation:float 4s linear infinite;
 </div>
 
 <script>
-
 const main = document.getElementById("main");
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
@@ -129,27 +138,44 @@ yesBtn.style.transform=`scale(${scale})`;
 
 yesBtn.addEventListener("click",firstYes);
 
+// ======= STEP SEQUENCE =======
+
 function firstYes(){
 main.innerHTML=`
 <h1>YAYYY!!! 💕</h1>
 <img src="cute.gif">
-<h2>Are baaiko why you are smiling? 😏❤️</h2>
-<button class="yes" onclick="cameraStep()">Haa bilkul lo 😌📸</button>
-<button class="yes" onclick="cameraStep()">Are 1 kya 2 lelo 😳✨</button>
+<h2>Oh Rishu... why are you smiling? 😏❤️</h2>
+<button class="yes" onclick="stepTwo()">Next 😄</button>
 `;
 startHearts();
 }
 
-// CAMERA STEP
+// Step 2: Teasing continue
+function stepTwo(){
+main.innerHTML=`
+<h2>You look so beautiful while smiling 😍❤️</h2>
+<button class="yes" onclick="stepThree()">Next 😘</button>
+`;
+}
+
+// Step 3: Ask to take her picture
+function stepThree(){
+main.innerHTML=`
+<h2>Can I click a picture of you? 📸</h2>
+<button class="yes" onclick="cameraStep()">Haa lelo 😌📸</button>
+<button class="yes" onclick="cameraStep()">Are 1 kya 2 lelo 😳✨</button>
+`;
+}
+
+// Step 4: Camera GIF
 function cameraStep(){
 main.innerHTML=`
-<h2>You look so cute while smiling 😭❤️</h2>
-<p>Can I click a picture of you? 📸</p>
+<h2>Click the camera 📸</h2>
 <img src="catcam1.jpeg" class="cat" onclick="showHerPhoto()">
 `;
 }
 
-// SHOW HER PHOTO
+// Step 5: Show her photo
 function showHerPhoto(){
 main.innerHTML=`
 <h2>Oh my god... look at you 😍❤️</h2>
@@ -158,10 +184,9 @@ main.innerHTML=`
 <button class="yes" onclick="couplePhoto()">Yes 💞</button>
 <button class="no" id="no2">Sharma rahi hu 😝</button>
 `;
-moveNo("no2");
 }
 
-// COUPLE PHOTO
+// Couple photo
 function couplePhoto(){
 main.innerHTML=`
 <h1>OMG, look this Pretty Couple 💑✨</h1>
@@ -173,7 +198,7 @@ main.innerHTML=`
 startHearts();
 }
 
-// BIKE
+// Bike
 function ride(){
 main.innerHTML=`
 <h1>Hold Tight 😌🏍💨</h1>
@@ -183,16 +208,16 @@ main.innerHTML=`
 `;
 }
 
-// MEMORIES
+// Memories section
 function memories(){
 main.innerHTML=`
 <h1>Our Beautiful Memories ❤️</h1>
 <div class="memories">
-<img src="memo1.jpeg">
-<img src="memo2.jpeg">
-<img src="memo3.jpeg">
-<img src="memo4.jpeg">
-<img src="memo5.jpeg">
+<img src="memo1.jpeg" class="big">
+<img src="memo2.jpeg" class="big">
+<img src="memo3.jpeg" class="small">
+<img src="memo4.jpeg" class="small">
+<img src="memo5.jpeg" class="small">
 </div>
 <h2 style="margin-top:25px;">
 Every memory with you is my favorite chapter 📖💖
@@ -201,7 +226,7 @@ Every memory with you is my favorite chapter 📖💖
 `;
 }
 
-// ENDING
+// Ending
 function ending(){
 main.innerHTML=`
 <h1>Forever Starts Now 💍✨</h1>
@@ -215,6 +240,7 @@ on my bike, in my memories, and in my life ❤️
 startHearts();
 }
 
+// Move No button for initial step only
 function moveNo(id){
 const btn=document.getElementById(id);
 btn.addEventListener("mouseover",()=>{
@@ -225,6 +251,10 @@ btn.style.top=y+"px";
 });
 }
 
+// Attach move only to the first “No” button
+moveNo("noBtn");
+
+// Hearts animation
 function startHearts(){
 setInterval(()=>{
 const heart=document.createElement("div");
@@ -237,7 +267,6 @@ document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),4000);
 },300);
 }
-
 </script>
 
 </body>
