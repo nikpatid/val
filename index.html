@@ -26,9 +26,10 @@ padding:20px;
 100%{background-position:0% 50%}
 }
 #main{
-width:100%;
 max-width:700px;
 animation:fadeIn 1s ease;
+overflow:auto;
+max-height:90vh;
 transition:opacity 0.8s ease, transform 0.8s ease;
 opacity:1;
 }
@@ -68,7 +69,7 @@ display:flex;
 flex-wrap:wrap;
 justify-content:center;
 align-items:flex-start;
-gap:10px;
+gap:15px;
 margin-top:25px;
 }
 .memories img{
@@ -77,9 +78,9 @@ box-shadow:0 0 15px rgba(255,255,255,0.7);
 transition:transform 0.3s;
 object-fit:cover;
 }
-.memories img:hover{transform:scale(1.05);}
-.memories .big{flex:1 1 calc(50% - 10px); height:auto;}
-.memories .small{flex:1 1 calc(33% - 10px); height:auto;}
+.memories img:hover{transform:scale(1.1);}
+.memories .big{flex:1 1 48%; height:auto;}
+.memories .small{flex:1 1 30%; height:auto;}
 .heart{position:absolute;animation:float 4s linear infinite;}
 @keyframes float{0%{transform:translateY(0);opacity:1;}100%{transform:translateY(-800px);opacity:0;}}
 </style>
@@ -100,29 +101,20 @@ const yesBtn = document.getElementById("yesBtn");
 
 const noMessages = [
   "Ek baar fir soch le 😜",
-  "Soch le…  itna bura bhi nahi hu 😏",
+  "Soch le… itna bura bhi nahi hu 😏",
   "Are yaar, bas thoda pyar dikhade ❤️",
   "Mujhe mana karna mushkil hoga na 😎",
   "Chalo chalo… bas haan bol de 😍"
 ];
 let noIndex = 0;
 
-// ==== FIXED NO BUTTON ====
 noBtn.addEventListener("mouseover",()=>{
-  const btnWidth = noBtn.offsetWidth;
-  const btnHeight = noBtn.offsetHeight;
-
-  // Stay fully inside viewport
-  const x = Math.random() * (window.innerWidth - btnWidth - 20) + 10;
-  const y = Math.random() * (window.innerHeight - btnHeight - 20) + 10;
-
-  noBtn.style.left = x + "px";
-  noBtn.style.top = y + "px";
-
-  // Show hover messages
+  const x=Math.random()*(window.innerWidth-100);
+  const y=Math.random()*(window.innerHeight-50);
+  noBtn.style.left=x+"px";
+  noBtn.style.top=y+"px";
   noBtn.textContent = noMessages[noIndex];
-  noIndex = (noIndex+1) % noMessages.length;
-  noBtn.style.transition = "all 0.3s ease";
+  noIndex = (noIndex+1)%noMessages.length;
 });
 
 yesBtn.addEventListener("click",()=>transition(step1));
@@ -137,7 +129,6 @@ function showImage(selector){
   if(img) setTimeout(()=>img.classList.add("show"),50);
 }
 
-// ==== Steps ====
 function step1(){
   main.classList.remove("fade-out");
   main.innerHTML=`
@@ -186,6 +177,7 @@ function showHerPhoto(){
   showImage("img");
 }
 
+
 function couplePhoto(){
   main.classList.remove("fade-out");
   main.innerHTML=`
@@ -229,9 +221,7 @@ function memories(){
     <button class="yes" onclick="transition(ending)">One last thing 😌</button>
   </div>
   `;
-  main.querySelectorAll(".memories img").forEach(img=>{
-    img.style.width = "100%"; // fit flex space
-    img.style.height = "auto";
+  main.querySelectorAll("img").forEach(img=>{
     setTimeout(()=>img.classList.add("show"),50);
   });
 }
@@ -268,6 +258,4 @@ setTimeout(()=>heart.remove(),4000);
 </script>
 
 </body>
-</html>
-
-
+</html
