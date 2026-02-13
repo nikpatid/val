@@ -130,7 +130,7 @@ function showImage(selector){
 function step1(){
   main.classList.remove("fade-out");
   main.innerHTML=`
-  <h1>YAYYY!!! Thank you so much Rishu💕</h1>
+  <h1>YAYYY!!! Thank you so much Rishu for Accepting💕</h1>
   <h2>Awwwww… why are you smiling? 😏❤️</h2>
   <button class="yes" onclick="transition(step2)">Next 😄</button>
   `;
@@ -157,7 +157,7 @@ function step3(){
 function step4(){
   main.classList.remove("fade-out");
   main.innerHTML=`
-  <h2>Click on the camera to see your picture! 📸</h2>
+  <h2>Click on the camera to see a pretty girl! 📸</h2>
   <img src="catcam1.jpeg" class="cat" onclick="transition(showHerPhoto)">
   `;
   showImage("img");
@@ -168,7 +168,7 @@ function showHerPhoto(){
   main.innerHTML=`
   <h2>Oh my god... look at you 😍❤️</h2>
   <img src="her.jpeg">
-  <p>Now can we take one together? 🥺</p>
+  <p>Now can we take one picture together? 🥺</p>
   <button class="yes" onclick="transition(couplePhoto)">Yes 💞</button>
   <button class="no" id="no2">Sharma rahi hu 😝</button>
   `;
@@ -191,9 +191,9 @@ function couplePhoto(){
 function ride(){
   main.classList.remove("fade-out");
   main.innerHTML=`
-  <h1>Hold Tight 😌🏍💨</h1>
+  <h1>Hold Tight on my Bike😌🏍💨</h1>
   <img src="bike.jpeg">
-  <h2>With you, every road feels like heaven ❤️</h2>
+  <h2>With you, every road seems beautiful ❤️</h2>
   <button class="yes" onclick="transition(memories)">Let's see our memories 📸✨</button>
   `;
   showImage("img");
@@ -232,6 +232,7 @@ function ending(){
   on my bike, in my memories, and in my life ❤️
   </p>
   <h2 style="margin-top:25px;">I love you, always and forever 💞</h2>
+  <h3 style="margin-top:15px; font-style:italic; color:#ffdddd;">— Yours, Nikhil ❤️</h3>
   `;
   startHearts();
 }
@@ -252,3 +253,4 @@ setTimeout(()=>heart.remove(),4000);
 </script>
 </body>
 </html>
+
