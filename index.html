@@ -107,13 +107,19 @@ const noMessages = [
 ];
 let noIndex = 0;
 
+// ==== FIXED NO BUTTON ====
 noBtn.addEventListener("mouseover",()=>{
   const btnWidth = noBtn.offsetWidth;
   const btnHeight = noBtn.offsetHeight;
+
+  // Stay fully inside viewport
   const x = Math.random() * (window.innerWidth - btnWidth - 20) + 10;
   const y = Math.random() * (window.innerHeight - btnHeight - 20) + 10;
+
   noBtn.style.left = x + "px";
   noBtn.style.top = y + "px";
+
+  // Show hover messages
   noBtn.textContent = noMessages[noIndex];
   noIndex = (noIndex+1) % noMessages.length;
   noBtn.style.transition = "all 0.3s ease";
@@ -131,6 +137,7 @@ function showImage(selector){
   if(img) setTimeout(()=>img.classList.add("show"),50);
 }
 
+// ==== Steps ====
 function step1(){
   main.classList.remove("fade-out");
   main.innerHTML=`
@@ -195,7 +202,7 @@ function couplePhoto(){
 function ride(){
   main.classList.remove("fade-out");
   main.innerHTML=`
-  <h1>Hold Tight on my Bike! Mujhe Pakad ke beth, gir jayegi😌🏍💨</h1>
+  <h1>Hold Tight 😌🏍💨</h1>
   <img src="bike.jpeg">
   <h2>With you, every road feels beautiful ❤️</h2>
   <button class="yes" onclick="transition(memories)">Let's see our memories 📸✨</button>
@@ -203,7 +210,7 @@ function ride(){
   showImage("img");
 }
 
-// ==== MEMORIES FULLY VISIBLE ====
+// ==== MEMORIES FIXED ====
 function memories(){
   main.classList.remove("fade-out");
   main.innerHTML=`
@@ -222,8 +229,8 @@ function memories(){
     <button class="yes" onclick="transition(ending)">One last thing 😌</button>
   </div>
   `;
-  main.querySelectorAll("img").forEach(img=>{
-    img.style.width = "100%"; // ensure images fit their flex space
+  main.querySelectorAll(".memories img").forEach(img=>{
+    img.style.width = "100%"; // fit flex space
     img.style.height = "auto";
     setTimeout(()=>img.classList.add("show"),50);
   });
@@ -262,3 +269,4 @@ setTimeout(()=>heart.remove(),4000);
 
 </body>
 </html>
+
