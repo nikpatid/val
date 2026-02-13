@@ -26,10 +26,9 @@ padding:20px;
 100%{background-position:0% 50%}
 }
 #main{
+width:100%;
 max-width:700px;
 animation:fadeIn 1s ease;
-overflow:auto;
-max-height:90vh;
 transition:opacity 0.8s ease, transform 0.8s ease;
 opacity:1;
 }
@@ -69,7 +68,7 @@ display:flex;
 flex-wrap:wrap;
 justify-content:center;
 align-items:flex-start;
-gap:15px;
+gap:10px;
 margin-top:25px;
 }
 .memories img{
@@ -78,9 +77,9 @@ box-shadow:0 0 15px rgba(255,255,255,0.7);
 transition:transform 0.3s;
 object-fit:cover;
 }
-.memories img:hover{transform:scale(1.1);}
-.memories .big{flex:1 1 48%; height:auto;}
-.memories .small{flex:1 1 30%; height:auto;}
+.memories img:hover{transform:scale(1.05);}
+.memories .big{flex:1 1 calc(50% - 10px); height:auto;}
+.memories .small{flex:1 1 calc(33% - 10px); height:auto;}
 .heart{position:absolute;animation:float 4s linear infinite;}
 @keyframes float{0%{transform:translateY(0);opacity:1;}100%{transform:translateY(-800px);opacity:0;}}
 </style>
@@ -109,12 +108,15 @@ const noMessages = [
 let noIndex = 0;
 
 noBtn.addEventListener("mouseover",()=>{
-  const x=Math.random()*(window.innerWidth-100);
-  const y=Math.random()*(window.innerHeight-50);
-  noBtn.style.left=x+"px";
-  noBtn.style.top=y+"px";
+  const btnWidth = noBtn.offsetWidth;
+  const btnHeight = noBtn.offsetHeight;
+  const x = Math.random() * (window.innerWidth - btnWidth - 20) + 10;
+  const y = Math.random() * (window.innerHeight - btnHeight - 20) + 10;
+  noBtn.style.left = x + "px";
+  noBtn.style.top = y + "px";
   noBtn.textContent = noMessages[noIndex];
-  noIndex = (noIndex+1)%noMessages.length;
+  noIndex = (noIndex+1) % noMessages.length;
+  noBtn.style.transition = "all 0.3s ease";
 });
 
 yesBtn.addEventListener("click",()=>transition(step1));
@@ -177,7 +179,6 @@ function showHerPhoto(){
   showImage("img");
 }
 
-
 function couplePhoto(){
   main.classList.remove("fade-out");
   main.innerHTML=`
@@ -194,7 +195,7 @@ function couplePhoto(){
 function ride(){
   main.classList.remove("fade-out");
   main.innerHTML=`
-  <h1>Hold Tight 😌🏍💨</h1>
+  <h1>Hold Tight on my Bike! Mujhe Pakad ke beth, gir jayegi😌🏍💨</h1>
   <img src="bike.jpeg">
   <h2>With you, every road feels beautiful ❤️</h2>
   <button class="yes" onclick="transition(memories)">Let's see our memories 📸✨</button>
@@ -202,7 +203,7 @@ function ride(){
   showImage("img");
 }
 
-// ==== MEMORIES FIXED ====
+// ==== MEMORIES FULLY VISIBLE ====
 function memories(){
   main.classList.remove("fade-out");
   main.innerHTML=`
@@ -222,6 +223,8 @@ function memories(){
   </div>
   `;
   main.querySelectorAll("img").forEach(img=>{
+    img.style.width = "100%"; // ensure images fit their flex space
+    img.style.height = "auto";
     setTimeout(()=>img.classList.add("show"),50);
   });
 }
