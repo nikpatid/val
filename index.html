@@ -27,11 +27,15 @@ padding:20px;
 }
 #main{
 max-width:700px;
-animation:fadeIn 1.2s ease;
+animation:fadeIn 1s ease;
+overflow:auto;
+max-height:90vh;
+transition:opacity 0.8s ease, transform 0.8s ease;
+opacity:1;
 }
-@keyframes fadeIn{
-from{opacity:0;transform:translateY(20px);}
-to{opacity:1;transform:translateY(0);}
+.fade-out{
+opacity:0;
+transform:translateY(20px);
 }
 button{
 padding:12px 25px;
@@ -50,6 +54,13 @@ margin-top:20px;
 border-radius:20px;
 box-shadow:0 0 25px rgba(255,255,255,0.7);
 max-width:280px;
+transition:transform 0.5s ease, opacity 0.5s ease;
+opacity:0;
+transform:scale(0.9);
+}
+img.show{
+opacity:1;
+transform:scale(1);
 }
 .cat{cursor:pointer;transition:0.3s;}
 .cat:hover{transform:scale(1.1);}
@@ -61,8 +72,8 @@ margin-top:25px;
 }
 .memories .small{height:150px;}
 .memories .big{height:220px;}
-.memories img{width:100%;object-fit:cover;transition:0.3s;}
-.memories img:hover{transform:scale(1.05);}
+.memories img{width:100%;object-fit:cover;transition:transform 0.3s;}
+.memories img:hover{transform:scale(1.2);}
 .heart{position:absolute;animation:float 4s linear infinite;}
 @keyframes float{0%{transform:translateY(0);opacity:1;}100%{transform:translateY(-800px);opacity:0;}}
 </style>
@@ -81,112 +92,148 @@ const main = document.getElementById("main");
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 
-// initial No button movement
+// No hover messages
+const noMessages = [
+  "Ek baar fir soch le 😜",
+  "Soch le… itna bura bhi nahi hu 😏",
+  "Are yaar, bas thoda pyar dikhade ❤️",
+  "Mujhe mana karna mushkil hoga na 😎",
+  "Chalo chalo… bas haan bol de 😍"
+];
+let noIndex = 0;
+
+// Move No button with messages
 noBtn.addEventListener("mouseover",()=>{
-const x=Math.random()*(window.innerWidth-100);
-const y=Math.random()*(window.innerHeight-50);
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
+  const x=Math.random()*(window.innerWidth-100);
+  const y=Math.random()*(window.innerHeight-50);
+  noBtn.style.left=x+"px";
+  noBtn.style.top=y+"px";
+  noBtn.textContent = noMessages[noIndex];
+  noIndex = (noIndex+1)%noMessages.length;
 });
-yesBtn.addEventListener("click",step1);
+
+yesBtn.addEventListener("click",()=>transition(step1));
+
+// ===== Transition helper =====
+function transition(nextStep){
+  main.classList.add("fade-out");
+  setTimeout(()=>{ nextStep(); },800);
+}
+
+// Show images with fade-in
+function showImage(selector){
+  const img = main.querySelector(selector);
+  if(img) setTimeout(()=>img.classList.add("show"),50);
+}
 
 // ====== SEQUENCE ======
-
 function step1(){
-main.innerHTML=`
-<h1>YAYYY!!! Thank you so much Rishu💕</h1>
-<h2>Awwwww… why are you smiling? 😏❤️</h2>
-<button class="yes" onclick="step2()">Next 😄</button>
-`;
-startHearts();
+  main.classList.remove("fade-out");
+  main.innerHTML=`
+  <h1>YAYYY!!! Thank you so much Rishu💕</h1>
+  <h2>Awwwww… why are you smiling? 😏❤️</h2>
+  <button class="yes" onclick="transition(step2)">Next 😄</button>
+  `;
+  startHearts();
 }
 
 function step2(){
-main.innerHTML=`
-<h2>You look so beautiful while smiling 😍❤️</h2>
-<button class="yes" onclick="step3()">Next 😘</button>
-`;
+  main.classList.remove("fade-out");
+  main.innerHTML=`
+  <h2>You look so beautiful while smiling 😍❤️</h2>
+  <button class="yes" onclick="transition(step3)">Next 😘</button>
+  `;
 }
 
 function step3(){
-main.innerHTML=`
-<h2>Can I click a picture of you? 📸</h2>
-<button class="yes" onclick="step4()">Haa lelo 😌📸</button>
-<button class="yes" onclick="step4()">Are 1 kya 2 lelo 😳✨</button>
-`;
+  main.classList.remove("fade-out");
+  main.innerHTML=`
+  <h2>Can I click a picture of you? 📸</h2>
+  <button class="yes" onclick="transition(step4)">Haa lelo 😌📸</button>
+  <button class="yes" onclick="transition(step4)">Are 1 kya 2 lelo 😳✨</button>
+  `;
 }
 
-// Step 4: Camera GIF with instruction
 function step4(){
-main.innerHTML=`
-<h2>Click on the camera to see your picture! 📸</h2>
-<img src="catcam1.jpeg" class="cat" onclick="showHerPhoto()">
-`;
+  main.classList.remove("fade-out");
+  main.innerHTML=`
+  <h2>Click on the camera to see your picture! 📸</h2>
+  <img src="catcam1.jpeg" class="cat" onclick="transition(showHerPhoto)">
+  `;
+  showImage("img");
 }
 
-// Step 5: Show her photo
 function showHerPhoto(){
-main.innerHTML=`
-<h2>Oh my god... look at you 😍❤️</h2>
-<img src="her.jpeg">
-<p>Now can we take one together? 🥺</p>
-<button class="yes" onclick="couplePhoto()">Yes 💞</button>
-<button class="no" id="no2">Sharma rahi hu 😝</button>
-`;
+  main.classList.remove("fade-out");
+  main.innerHTML=`
+  <h2>Oh my god... look at you 😍❤️</h2>
+  <img src="her.jpeg">
+  <p>Now can we take one together? 🥺</p>
+  <button class="yes" onclick="transition(couplePhoto)">Yes 💞</button>
+  <button class="no" id="no2">Sharma rahi hu 😝</button>
+  `;
+  showImage("img");
 }
 
-// Couple photo
 function couplePhoto(){
-main.innerHTML=`
-<h1>OMG, look this Pretty Couple 💑✨</h1>
-<img src="us.jpeg">
-<h2>Chal ab meri bike ke piche beth ke mere saath ghumne chalegi? 🏍❤️</h2>
-<button class="yes" onclick="ride()">Haa chalo 😍🏍</button>
-<button class="yes" onclick="ride()">Abhi chalo 😏🔥</button>
-`;
-startHearts();
+  main.classList.remove("fade-out");
+  main.innerHTML=`
+  <h1>OMG, look this Pretty Couple 💑✨</h1>
+  <img src="us.jpeg">
+  <h2>Chal ab meri bike ke piche beth ke mere saath ghumne chalegi? 🏍❤️</h2>
+  <button class="yes" onclick="transition(ride)">Haa chalo 😍🏍</button>
+  <button class="yes" onclick="transition(ride)">Abhi chalo 😏🔥</button>
+  `;
+  showImage("img");
+  startHearts();
 }
 
-// Bike
 function ride(){
-main.innerHTML=`
-<h1>Hold Tight 😌🏍💨</h1>
-<img src="bike.jpeg">
-<h2>With you, every road feels like heaven ❤️</h2>
-<button class="yes" onclick="memories()">Let's see our memories 📸✨</button>
-`;
+  main.classList.remove("fade-out");
+  main.innerHTML=`
+  <h1>Hold Tight 😌🏍💨</h1>
+  <img src="bike.jpeg">
+  <h2>With you, every road feels like heaven ❤️</h2>
+  <button class="yes" onclick="transition(memories)">Let's see our memories 📸✨</button>
+  `;
+  showImage("img");
 }
 
-// Memories section
 function memories(){
-main.innerHTML=`
-<h1>Our Beautiful Memories ❤️</h1>
-<div class="memories">
-<img src="memo1.jpeg" class="big">
-<img src="memo2.jpeg" class="big">
-<img src="memo3.jpeg" class="small">
-<img src="memo4.jpeg" class="small">
-<img src="memo5.jpeg" class="small">
-</div>
-<h2 style="margin-top:25px;">
-Every memory with you is my favorite chapter 📖💖
-</h2>
-<button class="yes" onclick="ending()">One last thing 😌</button>
-`;
+  main.classList.remove("fade-out");
+  main.innerHTML=`
+  <h1>Our Beautiful Memories ❤️</h1>
+  <div class="memories">
+  <img src="memo1.jpeg" class="big">
+  <img src="memo2.jpeg" class="big">
+  <img src="memo3.jpeg" class="small">
+  <img src="memo4.jpeg" class="small">
+  <img src="memo5.jpeg" class="small">
+  </div>
+  <h2 style="margin-top:25px;">
+  Every memory with you is my favorite chapter 📖💖
+  </h2>
+  <div style="margin-top:20px;overflow:auto;">
+  <button class="yes" onclick="transition(ending)">One last thing 😌</button>
+  </div>
+  `;
+  main.querySelectorAll("img").forEach(img=>{
+    setTimeout(()=>img.classList.add("show"),50);
+  });
 }
 
-// Ending
 function ending(){
-main.innerHTML=`
-<h1>Forever Starts Now 💍✨</h1>
-<p style="margin-top:20px;font-size:1.2rem;">
-No matter where life takes us,  
-I just want you sitting behind me —  
-on my bike, in my memories, and in my life ❤️
-</p>
-<h2 style="margin-top:25px;">I love you, always and forever 💞</h2>
-`;
-startHearts();
+  main.classList.remove("fade-out");
+  main.innerHTML=`
+  <h1>Forever Starts Now 💍✨</h1>
+  <p style="margin-top:20px;font-size:1.2rem;">
+  No matter where life takes us,  
+  I just want you sitting behind me —  
+  on my bike, in my memories, and in my life ❤️
+  </p>
+  <h2 style="margin-top:25px;">I love you, always and forever 💞</h2>
+  `;
+  startHearts();
 }
 
 // Hearts animation
@@ -203,6 +250,5 @@ setTimeout(()=>heart.remove(),4000);
 },300);
 }
 </script>
-
 </body>
 </html>
