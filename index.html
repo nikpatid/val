@@ -104,8 +104,8 @@ let noIndex = 0;
 
 // Move No button with messages
 noBtn.addEventListener("mouseover",()=>{
-  const x=Math.random()*(window.innerWidth-100);
-  const y=Math.random()*(window.innerHeight-50);
+  const x=Math.random()*(window.innerWidth-10);
+  const y=Math.random()*(window.innerHeight-10);
   noBtn.style.left=x+"px";
   noBtn.style.top=y+"px";
   noBtn.textContent = noMessages[noIndex];
@@ -159,7 +159,7 @@ function step3(){
 function step4(){
   main.classList.remove("fade-out");
   main.innerHTML=`
-  <h2>Click on the camera to see your picture! 📸</h2>
+  <h2>Click on the camera to see a pretty girl! 📸</h2>
   <img src="catcam1.jpeg" class="cat" onclick="transition(showHerPhoto)">
   `;
   showImage("img");
@@ -171,7 +171,7 @@ function showHerPhoto(){
   <h2 style="font-size:2rem; font-weight:700; margin-top:20px;">Oh my god... look at you 😍❤️</h2>
   <img src="her.jpeg">
   <p style="font-size:2rem; font-weight:700; margin-top:25px;">Ek photo mere saath lele yaar? 🥺📸</p>
-  <button class="yes" onclick="transition(couplePhoto)">Yes 💞</button>
+  <button class="yes" onclick="transition(couplePhoto)">Hanji bilkul 💞</button>
   <button class="no" id="no2">Sharma rahi hu 😝</button>
   `;
   showImage("img");
@@ -227,7 +227,7 @@ function memories(){
 function ending(){
   main.classList.remove("fade-out");
   main.innerHTML=`
-  <h1>Forever Starts Now 💍✨</h1>
+  <h1>Happy Valentine's Day 💞💍✨</h1>
   <p style="margin-top:20px;font-size:1.2rem;">
   No matter where life takes us,  
   I just want you sitting behind me —  
@@ -255,5 +255,6 @@ setTimeout(()=>heart.remove(),4000);
 </script>
 </body>
 </html>
+
 
 
